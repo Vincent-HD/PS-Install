@@ -1,4 +1,4 @@
-function global:Test-Winget-Package-Installed {
+function global:Test-WingetPackageInstalled {
     param (
         [string]$package_id
     )
@@ -10,11 +10,11 @@ function global:Test-Winget-Package-Installed {
         return $false
     }
 }
-function global:Install-Winget-Package {
+function global:Install-WingetPackage {
     param (
         [string]$package_id
     )
-    if (-Not (Check-Winget-Package-Installed($package_id))) {
+    if (-Not (Test-WingetPackageInstalled($package_id))) {
         winget install --accept-package-agreements --accept-source-agreements "$package_id"
         if ($?) {
             "An error occured during installation, exiting ..."
@@ -25,7 +25,7 @@ function global:Install-Winget-Package {
     }
 }
 
-function global:Test-Choco-Package-Installed {
+function global:Test-ChocoPackageInstalled {
     param (
         [string]$package_id
     )
@@ -37,11 +37,11 @@ function global:Test-Choco-Package-Installed {
     }
 }
 
-function global:Install-Choco-Package {
+function global:Install-ChocoPackage {
     param (
         [string]$package_id
     )
-    if (-Not (Test-Choco-Package-Installed($package_id))) {
+    if (-Not (Test-ChocoPackageInstalled($package_id))) {
         choco install --no-progress -y -r $package_id
         if ($?) {
             "An error occured during installation, exiting ..."
