@@ -1,4 +1,4 @@
-function global:Test-WingetPackageInstalled([string] $package_id) {
+﻿function global:Test-WingetPackageInstalled([string] $package_id) {
     $package = winget list --id "$package_id"
     $package = [string]::Join(" ", $package) # La commande renvoie un tableau de string, évite le foreach
     if ($package.Contains("$package_id")) {
@@ -9,7 +9,10 @@ function global:Test-WingetPackageInstalled([string] $package_id) {
 }
 function global:Install-WingetPackage([string] $package_id, [bool] $verbose = $true) {
     if (-Not (Test-WingetPackageInstalled $package_id)) {
+        Write-Host -ForegroundColor Yellow "Installation de - ID: $mpv_id"
         winget install --accept-package-agreements --accept-source-agreements "$package_id"
+        refreshenv
+        Write-Host -ForegroundColor Yellow "Installation terminée"
     } elseif ($verbose) {
         "Package $package_id already installed"
     }
@@ -27,6 +30,7 @@ function global:Test-ChocoPackageInstalled([string] $package_id) {
 function global:Install-ChocoPackage([string] $package_id, [bool] $verbose = $true) {
     if (-Not (Test-ChocoPackageInstalled $package_id)) {
         choco install --no-progress -y -r $package_id
+        refreshenv
     } elseif ($verbose) {
         "Package $package_id already installed"
     }

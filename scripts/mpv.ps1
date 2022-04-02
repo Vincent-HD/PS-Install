@@ -1,19 +1,13 @@
-function Install {
+﻿function Install {
     $mpv_id = "5664FrankSkare.mpv.net_0ta2kwwjvkgap"
     $ytdlp = "yt-dlp"
     $python3 = "Python.Python.3"
     $script_path = "$env:APPDATA/mpv.net/scripts"
     $repo_sponsorblock = "https://github.com/po5/mpv_sponsorblock.git"
 
-    Write-Host -ForegroundColor Yellow "Installation de MPV - ID: $mpv_id"
     Install-WingetPackage $mpv_id
-    Write-Host -ForegroundColor Yellow "Installation terminée"
-    Write-Host -ForegroundColor Yellow "Installation de ytdlp"
     Install-ChocoPackage $ytdlp
-    Write-Host -ForegroundColor Yellow "Installation terminée"
-    Write-Host -ForegroundColor Yellow "Installation de Python3 - ID: $python3"
     Install-WingetPackage $python3
-    Write-Host -ForegroundColor Yellow "Installation terminée"
     
     if (-Not(Test-Path -Path $script_path -PathType Container )) {
         Write-Host -ForegroundColor Yellow "Dossier manquant, création du dossier: $script_path"
