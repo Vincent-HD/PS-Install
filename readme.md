@@ -1,4 +1,4 @@
-#Script Powershell d'installation automatique
+# Script Powershell d'installation automatique
 
 Tous les scripts qui sont présent dans le dossier scripts et déclarer dans la variable `$install_list` du fichier `install.ps1` sont éxécuter automatiquement.
 
