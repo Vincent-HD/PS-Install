@@ -40,7 +40,11 @@ function global:Install-ChocoPackage([string] $package_id, [bool] $verbose = $tr
 
 function global:Invoke-GitClone([string] $repo, [string] $path = '.') {
     Install-WingetPackage "Git.Git" $false
+    $git_tmp = "$path/tmpgit"
+    New-Item -Path $git_tmp -ItemType Container
     git clone $repo $path
+    Move-Item -Path "$git_tmp/*" -Destination $path
+    Remove-Item -Path $git_tmp -Recurse -Force
 }
 
 function global:Invoke-RefreshEnv() {
