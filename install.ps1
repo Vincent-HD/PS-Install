@@ -1,3 +1,4 @@
+chcp 65001
 
 $scripts_path = "./scripts"
 $install_list = @(
