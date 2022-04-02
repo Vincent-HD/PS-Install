@@ -22,6 +22,6 @@
     global:Invoke-GitClone $repo_sponsorblock "$env:APPDATA/mpv.net/scripts"
     Write-Host -ForegroundColor Yellow "Clone terminé"
     Write-Host -ForegroundColor Yellow "Copie des fichiers de configuration"
-    Move-Item -Path "conf/mpv/*" -Destination $mpv_path -Force
+    Copy-Item -Path "conf/mpv/*" -Destination $mpv_path -Force
 }
 Install
