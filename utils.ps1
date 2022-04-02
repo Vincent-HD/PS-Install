@@ -42,7 +42,7 @@ function global:Invoke-GitClone([string] $repo, [string] $path = '.') {
     Install-WingetPackage "Git.Git" $false
     $git_tmp = "$path/tmpgit"
     New-Item -Path $git_tmp -ItemType Container
-    git clone $repo $path
+    git clone $repo $git_tmp
     Move-Item -Path "$git_tmp/*" -Destination $path
     Remove-Item -Path $git_tmp -Recurse -Force
 }
