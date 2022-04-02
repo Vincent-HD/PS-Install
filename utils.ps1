@@ -33,6 +33,6 @@ function global:Install-ChocoPackage([string] $package_id, [bool] $verbose = $tr
 }
 
 function global:Invoke-GitClone([string] $repo, [string] $path = '.') {
-    Install-ChocoPackage "Git.Git" $false
+    Install-WingetPackage "Git.Git" $false
     git clone $repo $path
 }
