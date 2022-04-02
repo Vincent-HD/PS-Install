@@ -8,7 +8,7 @@ function global:Test-WingetPackageInstalled([string] $package_id) {
     }
 }
 function global:Install-WingetPackage([string] $package_id, [bool] $verbose = $true) {
-    if (-Not (Test-WingetPackageInstalled($package_id))) {
+    if (-Not (Test-WingetPackageInstalled $package_id)) {
         winget install --accept-package-agreements --accept-source-agreements "$package_id"
     } elseif ($verbose) {
         "Package $package_id already installed"
@@ -25,7 +25,7 @@ function global:Test-ChocoPackageInstalled([string] $package_id) {
 }
 
 function global:Install-ChocoPackage([string] $package_id, [bool] $verbose = $true) {
-    if (-Not (Test-ChocoPackageInstalled($package_id))) {
+    if (-Not (Test-ChocoPackageInstalled $package_id)) {
         choco install --no-progress -y -r $package_id
     } elseif ($verbose) {
         "Package $package_id already installed"
@@ -33,6 +33,6 @@ function global:Install-ChocoPackage([string] $package_id, [bool] $verbose = $tr
 }
 
 function global:Invoke-GitClone([string] $repo, [string] $path = '.') {
-    Install-ChocoPackage("Git.Git", $false)
+    Install-ChocoPackage "Git.Git" $false
     git clone $repo $path
 }
