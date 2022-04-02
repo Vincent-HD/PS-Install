@@ -9,9 +9,9 @@
 }
 function global:Install-WingetPackage([string] $package_id, [bool] $verbose = $true) {
     if (-Not (Test-WingetPackageInstalled $package_id)) {
-        Write-Host -ForegroundColor Yellow "Installation de - ID: $mpv_id"
+        Write-Host -ForegroundColor Yellow "Installation du package - ID: $package_id"
         winget install --accept-package-agreements --accept-source-agreements "$package_id"
-        refreshenv
+        Invoke-RefreshEnv
         Write-Host -ForegroundColor Yellow "Installation terminée"
     } elseif ($verbose) {
         "Package $package_id already installed"
@@ -29,8 +29,10 @@ function global:Test-ChocoPackageInstalled([string] $package_id) {
 
 function global:Install-ChocoPackage([string] $package_id, [bool] $verbose = $true) {
     if (-Not (Test-ChocoPackageInstalled $package_id)) {
+        Write-Host -ForegroundColor Yellow "Installation du package - ID: $package_id"
         choco install --no-progress -y -r $package_id
-        refreshenv
+        Invoke-RefreshEnv
+        Write-Host -ForegroundColor Yellow "Installation terminée"
     } elseif ($verbose) {
         "Package $package_id already installed"
     }
@@ -39,4 +41,8 @@ function global:Install-ChocoPackage([string] $package_id, [bool] $verbose = $tr
 function global:Invoke-GitClone([string] $repo, [string] $path = '.') {
     Install-WingetPackage "Git.Git" $false
     git clone $repo $path
+}
+
+function global:Invoke-RefreshEnv() {
+    $env:Path = [System.Environment]::ExpandEnvironmentVariables([System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User"))
 }
