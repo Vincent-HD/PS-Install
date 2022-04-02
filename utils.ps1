@@ -43,7 +43,7 @@ function global:Invoke-GitClone([string] $repo, [string] $path = '.') {
     $git_tmp = "$path/tmpgit"
     New-Item -Path $git_tmp -ItemType Container
     git clone $repo $git_tmp
-    Copy-Item -Path "$git_tmp/*" -Destination $path
+    Copy-Item -Path "$git_tmp/*" -Destination $path -Force
     Remove-Item -Path $git_tmp -Recurse -Force
 }
 
